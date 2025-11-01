@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="mrp_fridge_temperature_view_tree" model="ir.ui.view">
+        <field name="name">mrp.fridge.temperature.tree</field>
+        <field name="model">mrp.fridge.temperature</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="temperature > threshold">
+                <field name="datetime"/>
+                <field name="fridge_id"/>
+                <field name="temperature"/>
+            </list>
+        </field>
+    </record>
+ 
+    <!-- Search View -->
+    <record id="mrp_fridge_temperature_view_search" model="ir.ui.view">
+        <field name="name">mrp.fridge.temperature.search</field>
+        <field name="model">mrp.fridge.temperature</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="fridge_id" />
+                <field name="datetime" />
+                <group expand="0" string="Group By">
+                    <filter string="Fridge" name="group_by_fridge"
+                        context="{'group_by': 'fridge_id'}" />
+                    <filter string="Date" name="group_by_date"
+                        context="{'group_by': 'datetime:day'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action -->
+    <record id="action_mrp_fridge_temperature" model="ir.actions.act_window">
+        <field name="name">Temperature Records</field>
+        <field name="res_model">mrp.fridge.temperature</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="mrp_fridge_view_tree" model="ir.ui.view">
+        <field name="name">mrp.fridge.tree</field>
+        <field name="model">mrp.fridge</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id" />
+                <field name="name" />
+                <field name="description" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="mrp_fridge_view_form" model="ir.ui.view">
+        <field name="name">mrp.fridge.form</field>
+        <field name="model">mrp.fridge</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id" />
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="description" />
+                            <field name="temperature_threshold" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Temperature Records">
+                            <field name="temperature_ids" readonly="1">
+                                <list decoration-danger="temperature > parent.temperature_threshold">
+                                    <field name="datetime" />
+                                    <field name="temperature" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_mrp_fridge" model="ir.actions.act_window">
+        <field name="name">Fridges</field>
+        <field name="res_model">mrp.fridge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

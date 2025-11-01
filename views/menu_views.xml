@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Parent Menu -->
+    <menuitem id="menu_mrp_fridge_root"
+              name="Fridges"
+              parent="mrp.menu_mrp_root"
+              sequence="100"/>
+
+    <!-- Fridge Menu -->
+    <menuitem id="menu_mrp_fridge"
+              name="Fridges"
+              parent="menu_mrp_fridge_root"
+              action="action_mrp_fridge"
+              sequence="10"/>
+
+    <!-- Temperature Records Menu -->
+    <menuitem id="menu_mrp_fridge_temperature"
+              name="Temperature Records"
+              parent="menu_mrp_fridge_root"
+              action="action_mrp_fridge_temperature"
+              sequence="20"/>
+</odoo>

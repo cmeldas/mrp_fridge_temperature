@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_fridge_temperature
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-01 07:00+0000\n"
+"PO-Revision-Date: 2025-11-01 07:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Czech\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge__name
+msgid "Name"
+msgstr "Název"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge__description
+msgid "Description"
+msgstr "Popis"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge__temperature_threshold
+msgid "Temperature Threshold (°C)"
+msgstr "Teplotní limit (°C)"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,help:mrp_fridge_temperature.field_mrp_fridge__temperature_threshold
+msgid "Maximum allowed temperature. Records above this value will be highlighted."
+msgstr "Maximální povolená teplota. Záznamy nad touto hodnotou budou zvýrazněny."
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge_temperature__datetime
+msgid "Date and Time"
+msgstr "Datum a čas"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge_temperature__temperature
+msgid "Temperature (°C)"
+msgstr "Teplota (°C)"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge_temperature__threshold
+msgid "Threshold (°C)"
+msgstr "Limit (°C)"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge_temperature__fridge_id
+msgid "Fridge"
+msgstr "Lednička"
+
+#. module: mrp_fridge_temperature
+#: model:ir.actions.act_window,name:mrp_fridge_temperature.action_mrp_fridge
+#: model:ir.ui.menu,name:mrp_fridge_temperature.menu_mrp_fridge_root
+#: model:ir.ui.menu,name:mrp_fridge_temperature.menu_mrp_fridge
+msgid "Fridges"
+msgstr "Ledničky"
+
+#. module: mrp_fridge_temperature
+#: model:ir.actions.act_window,name:mrp_fridge_temperature.action_mrp_fridge_temperature
+#: model:ir.ui.menu,name:mrp_fridge_temperature.menu_mrp_fridge_temperature
+msgid "Temperature Records"
+msgstr "Záznamy teplot"
+
+#. module: mrp_fridge_temperature
+#: model_terms:ir.ui.view,arch_db:mrp_fridge_temperature.mrp_fridge_temperature_view_search
+msgid "Group By"
+msgstr "Seskupit podle"
+
+#. module: mrp_fridge_temperature
+#: model_terms:ir.ui.view,arch_db:mrp_fridge_temperature.mrp_fridge_temperature_view_search
+msgid "Date"
+msgstr "Datum"
