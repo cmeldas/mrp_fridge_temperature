@@ -5,10 +5,10 @@
         <field name="name">mrp.fridge.temperature.tree</field>
         <field name="model">mrp.fridge.temperature</field>
         <field name="arch" type="xml">
-            <list decoration-danger="temperature > threshold">
-                <field name="datetime"/>
-                <field name="fridge_id"/>
-                <field name="temperature"/>
+            <list decoration-danger="temperature > threshold"  editable="top" multi_edit="1">
+                <field name="datetime" readonly="1"/>
+                <field name="fridge_id" readonly="1"/>
+                <field name="temperature" readonly="0"/>
             </list>
         </field>
     </record>
@@ -21,6 +21,8 @@
             <search>
                 <field name="fridge_id" />
                 <field name="datetime" />
+                <filter string="Above Threshold" name="above_threshold"
+                        domain="[('is_above_threshold', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter string="Fridge" name="group_by_fridge"
                         context="{'group_by': 'fridge_id'}" />

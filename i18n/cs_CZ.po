@@ -77,3 +77,8 @@ msgstr "Seskupit podle"
 #: model_terms:ir.ui.view,arch_db:mrp_fridge_temperature.mrp_fridge_temperature_view_search
 msgid "Date"
 msgstr "Datum"
+
+#. module: mrp_fridge_temperature
+#: model:ir.model.fields,field_description:mrp_fridge_temperature.field_mrp_fridge_temperature__is_above_threshold
+msgid "Above Threshold"
+msgstr "Nad limitem"
