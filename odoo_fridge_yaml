@@ -1,0 +1,137 @@
+blueprint:
+  name: "Odoo log fridge temperature"
+  description: "Automated temperature logging to Odoo with high temperature monitoring"
+  domain: "automation"
+  input:
+    odoo_url:
+      name: "Odoo URL"
+      description: "The base URL of your Odoo instance (e.g. http://localhost:8069)"
+      selector:
+        text: {}
+    odoo_db:
+      name: "Odoo Database"
+      description: "The name of your Odoo database"
+      selector:
+        text: {}
+    odoo_login:
+      name: "Odoo Login"
+      description: "Username for Odoo login"
+      selector:
+        text: {}
+    odoo_psw:
+      name: "Odoo Password"
+      description: "Password for Odoo login, using API keys is suggested."
+      selector:
+        text: {}
+    odoo_fridge_id:
+      name: "Fridge ID"
+      description: "ID of the fridge in ODOO"
+      selector:
+        text: {}
+    odoo_temperature:
+      name: "Temperature"
+      description: "Temperature to record, use template, like this: {{states('sensor.sensor_name') }}"
+      selector:
+        text: {}
+    treshold_temperature:
+      name: "Temperature treshold"
+      description: "Above this temperature, persisten notification will be created."
+      default: "8"
+      selector:
+        text: {}
+    attempts:
+      name: "Attempts"
+      description: "If the temperature is above a treshold, it will wait for a delay and try again. After this many attempts it will create the persistent notification."
+      default: "40"
+      selector:
+        text: {}
+    delay_duration:
+      name: "Delay duration"
+      description: "Duration in [minutes] between the attempts"
+      default: "6"
+      selector:
+        text: {}
+    log_time:
+      name: "Log Time"
+      description: "Time to log the temperature daily"
+      default: "04:00:00"
+      selector:
+        time: {}
+
+trigger:
+  - platform: time
+    at: !input log_time
+
+variables:
+  odoo_url: !input odoo_url
+  odoo_db: !input odoo_db
+  odoo_login: !input odoo_login
+  odoo_psw: !input odoo_psw
+  odoo_fridge_id: !input odoo_fridge_id
+  attempt_count: 0
+  max_attempts: !input attempts
+  temperature: !input odoo_temperature
+  treshold_temperature: !input treshold_temperature
+  delay: !input delay_duration
+
+mode: restart
+
+condition:
+  - condition: template
+    value_template: "{{ temperature != 'unavailable' }}"
+
+action:
+  - repeat:
+      while: "{{ repeat.index <= max_attempts and temperature | float > treshold_temperature }}"
+      sequence:
+        - delay:
+            minutes: "{{ delay }}"
+        - if: "{{ repeat.index == max_attempts and temperature > treshold_temperature }}"
+          then:
+            - action: persistent_notification.create
+              data:
+                title: "Zkontroluj lednici"
+                message: "Lednice {{ odoo_fridge_id }} teplota je {{ temperature }}°C po {{ max_attempts }} pokusech"
+
+  - alias: "Authenticate with Odoo"
+    action: rest_command.odoo_api
+    data:
+      url: "{{ odoo_url }}/jsonrpc"
+      payload: >
+        {
+          "jsonrpc": "2.0",
+          "method": "call",
+          "params": {
+            "service": "common",
+            "method": "login",
+            "args": ["{{ odoo_db }}", "{{ odoo_login }}", "{{ odoo_psw }}"]
+          },
+          "id": {{ range(100000) | random }}
+        }
+    response_variable: "auth_result"
+
+  - alias: "Log temperature to Odoo"
+    action: rest_command.odoo_api
+    data:
+      url: "{{ odoo_url }}/jsonrpc"
+      payload: >
+        {
+          "jsonrpc": "2.0",
+          "method": "call",
+          "params": {
+            "service": "object",
+            "method": "execute_kw",
+            "args": [
+              "{{ odoo_db }}",
+              {{ auth_result.content.result }},
+              "{{ odoo_psw }}",
+              "mrp.fridge.temperature",
+              "create",
+              [{
+                "fridge_id": {{ odoo_fridge_id }},
+                "temperature": {{ temperature }}
+              }]
+            ]
+          },
+          "id": {{ range(100000) | random }}
+        }

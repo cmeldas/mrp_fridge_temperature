@@ -9,6 +9,9 @@
         * Track fridge temperatures
         * View temperature history
     """,
+    'author': 'Matouš Čmelík',
+    'website': 'https://github.com/cmeldas',
+    'maintainer': 'cmeldas@gmail.com',
     'depends': ['mrp'],
     'data': [
         'security/ir.model.access.csv',
