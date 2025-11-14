@@ -38,19 +38,21 @@ blueprint:
       description: "Above this temperature, persisten notification will be created."
       default: "8"
       selector:
-        text: {}
+        number:
+          unit_of_measurement: "°C"
     attempts:
       name: "Attempts"
       description: "If the temperature is above a treshold, it will wait for a delay and try again. After this many attempts it will create the persistent notification."
-      default: "40"
+      default: 40
       selector:
-        text: {}
+        number: {}
     delay_duration:
       name: "Delay duration"
       description: "Duration in [minutes] between the attempts"
-      default: "6"
+      default: 6
       selector:
-        text: {}
+        number:
+          unit_of_measurement: "minutes"
     log_time:
       name: "Log Time"
       description: "Time to log the temperature daily"
@@ -72,7 +74,6 @@ variables:
   max_attempts: !input attempts
   temperature: !input odoo_temperature
   treshold_temperature: !input treshold_temperature
-  delay: !input delay_duration
 
 mode: restart
 
@@ -85,7 +86,7 @@ action:
       while: "{{ repeat.index <= max_attempts and temperature | float > treshold_temperature }}"
       sequence:
         - delay:
-            minutes: "{{ delay }}"
+            minutes: !input delay_duration
         - if: "{{ repeat.index == max_attempts and temperature > treshold_temperature }}"
           then:
             - action: persistent_notification.create
