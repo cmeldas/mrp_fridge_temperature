@@ -23,7 +23,7 @@
                 <field name="datetime" />
                 <filter string="Above Threshold" name="above_threshold"
                         domain="[('is_above_threshold', '=', True)]"/>
-                <group expand="0" string="Group By">
+                <group string="Group By">
                     <filter string="Fridge" name="group_by_fridge"
                         context="{'group_by': 'fridge_id'}" />
                     <filter string="Date" name="group_by_date"
