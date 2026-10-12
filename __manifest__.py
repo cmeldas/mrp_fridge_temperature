@@ -1,6 +1,6 @@
 {
     'name': 'MRP Fridge Temperature',
-    'version': '19.0.1.0.0',
+    'version': '20.0.1.0.0',
     'category': 'Manufacturing/Manufacturing',
     'summary': 'Track fridge temperatures in manufacturing',
     'description': """
@@ -14,7 +14,7 @@
     'maintainer': 'cmeldas@gmail.com',
     'depends': ['mrp'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/mrp_fridge_views.xml',
         'views/mrp_fridge_temperature_views.xml',
         'views/menu_views.xml',
